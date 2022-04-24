@@ -30,8 +30,19 @@ Room.prototype.checkCorrectLinkPositionForFiller = function() {
   const fillerPos = this.memory.position.creep.filler[0];
   const linkPos = this.getFirstLinkNextToPosition(fillerPos);
   if (linkPos && linkPos.x !== this.memory.position.structure.link[0].x || linkPos.y !== this.memory.position.structure.link[0].y) {
-    this.log(`checkbugs: Wrong linkStorage position! Should be first in room.position.structure.link. Real position: ${JSON.stringify(linkPos)}`);
+    this.log(`checkbugs: Wrong linkStorage position! Should be first in room.position.structure.link.`);
+    for (let i = 0; i < this.memory.position.structure.link.length; i++) {
+      if (this.memory.position.structure.link[i].x === linkPos.x && this.memory.position.structure.link[i].y === linkPos.y) {
+        let one = this.memory.position.structure.link[i]
+        let two = this.memory.position.structure.link[0]
+        this.log(`checkbugs: swap linkStorage ${one.x} ${one.y} <> ${two.x} ${two.y}`)
+        this.memory.position.structure.link[0] = one
+        this.memory.position.structure.link[i] = two
+        break
+      }
+    }
   }
+
 };
 
 Room.prototype.execute = function() {

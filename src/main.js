@@ -29,7 +29,7 @@ module.exports.loop = function() {
   }
   if (global.config.pixel.enabled) {
     if (typeof PIXEL !== 'undefined') {
-      if (Game.cpu.bucket >= PIXEL_CPU_COST + global.config.pixel.minBucketAfter) {
+      if (Game.cpu.bucket >= PIXEL_CPU_COST) {
         Game.cpu.generatePixel();
       }
     }
